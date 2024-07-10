@@ -24,7 +24,7 @@ function addAttribute(element, attribute, content) {
 	return element.setAttribute(attribute, content);
 }
 
-const shoppingList = ['Milk', 'Tea'];
+let shoppingList = ['Milk', 'Tea'];
 
 const ol = select('ol');
 
@@ -50,6 +50,15 @@ function addItem(event) {
 	shoppingList.push(event.target[0].value);
 
 	displayItems();
-    
+
 event.target.reset();
 }
+
+const deleteButton = select('.delete');
+listen(deleteButton, 'click', clearList);
+
+function clearList() {
+    shoppingList.length=0;
+    displayItems();
+}
+
