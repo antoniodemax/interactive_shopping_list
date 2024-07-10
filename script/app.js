@@ -1,42 +1,55 @@
-//utility functions for DOM manipulation.
+// Utility Functions for DOM Manipulation.
+
 function createAnElement(element) {
-    return document.createElement(element);
+	return document.createElement(element);
 }
 
 function addText(element, text) {
-    return (element.innerText = text);
+	return (element.innerText = text);
 }
 
 function appendChild(child, parent) {
-    return parent.appendChild(child);
+	return parent.appendChild(child);
 }
 
 function select(selector) {
-    return document.querySelector(selector);
+	return document.querySelector(selector);
 }
 
-//eventListeners
-function listener(element, event, callback) {
-    return element.addEventListener(event, callback)
+function listen(element, event, callback) {
+	return element.addEventListener(event, callback);
 }
 
 function addAttribute(element, attribute, content) {
-    return element.setAttribute(attribute, content);
+	return element.setAttribute(attribute, content);
 }
 
-const shoppingList = ['milk', 'tea'];
+const shoppingList = ['Milk', 'Tea'];
 
 const ol = select('ol');
-listener(document, 'DOMContentLoaded', displayItems);
+
+listen(document, 'DOMContentLoaded', displayItems);
 
 function displayItems() {
-    shoppingList.forEach(createAListItem);
+	ol.innerHTML = '';
+	shoppingList.forEach(createAListItem);
 }
 
-function createAListItem(item){
-   const li= createAnElement('li');
-   addText(li, item);
-   appendChild(li, ol);
-
+function createAListItem(item) {
+	const li = createAnElement('li');
+	addText(li, item);
+	appendChild(li, ol);
 }
 
+const form = select('form');
+listen(form, 'submit', addItem);
+
+function addItem(event) {
+	event.preventDefault();
+
+	shoppingList.push(event.target[0].value);
+
+	displayItems();
+    
+event.target.reset();
+}
